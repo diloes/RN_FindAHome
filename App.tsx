@@ -1,20 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Dimensions, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+
+import Carousel, {Pagination} from 'react-native-snap-carousel'
+
+import ScreenContainer from './src/components/ScreenContainer';
+import { Item, items } from './src/data/items';
+import { colors } from './src/utils/colors';
+
+const {width: screenWidth} = Dimensions.get('screen')
 
 export default function App() {
+
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const renderItem = (item: Item) => {
+    return <ScreenContainer item={item} />
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <SafeAreaView style={styles.container}>
+      <StatusBar translucent />
+      <Carousel
+        data={items}
+        renderItem={({item}) => renderItem(item)}
+        sliderWidth={screenWidth}
+        itemWidth={screenWidth}
+        onSnapToItem={(index) => {
+          setActiveIndex(index)
+        }}
+      />
+      <Pagination 
+        containerStyle={{
+          position: 'absolute',
+          bottom: 20,
+          alignSelf: 'center'
+         }}
+        dotsLength={items.length}
+        activeDotIndex={activeIndex}
+        dotColor={colors.dotActiveColor}
+        inactiveDotColor='grey'
+        dotStyle={{
+          width: 9,
+          height: 9,
+        }}
+      />
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    flex: 1
+  }
 });
