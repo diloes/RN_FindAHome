@@ -3,7 +3,7 @@
 Es una prueba técnica para colaborar con una ONG en una app que conecte animales en adopción con
 personas que quieren adoptar.
 
-### react-native-snap-carousel
+## react-native-snap-carousel
 
 Para hacer el slider(carrusel) de 'screens' con esta libreria haremos lo siguiente, ya que el repo oficial no está siendo
 mantenido y da problemas:
